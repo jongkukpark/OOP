@@ -23,4 +23,68 @@ unique_immut::unique_immut(const unique_immut &immut) {
 unique_immut::~unique_immut() {
     release();
 }
+
+Object* unique_immut::get() const {
+	return _mgr->ptr;
+}
+
+void unique_immut::release() {
+	if (this->get() != nullptr) {
+		delete _mgr;
+		if (this->get() != nullptr)
+		{ // delete _mgr 해도 ptr이 nullptr된게 적용되지 않음.
+			_mgr = new mgr();
+		}
+	}
+}
+
+unique_immut unique_immut::operator+(unique_immut &unique) {
+	int l = this->get()->get();
+	int r = unique.get()->get();
+	this->release();
+	unique.release();
+	unique_immut lr(new Object(l+r));
+	return lr;
+}
+
+unique_immut unique_immut::operator-(unique_immut &unique) {
+	int l = this->get()->get();
+	int r = unique.get()->get();
+	this->release();
+	unique.release();
+	unique_immut lr(new Object(l-r));
+	return lr;
+}
+
+unique_immut unique_immut::operator*(unique_immut &unique) {
+	int l = this->get()->get();
+	int r = unique.get()->get();
+	this->release();
+	unique.release();
+	unique_immut lr(new Object(l*r));
+	return lr;
+}
+
+unique_immut unique_immut::operator/(unique_immut &unique) {
+	int l = this->get()->get();
+	int r = unique.get()->get();
+	this->release();
+	unique.release();
+	unique_immut lr(new Object(l/r));
+	return lr;
+}
+
+Object* unique_immut::operator->() {
+	return _mgr->ptr;
+}
+
+unique_immut& unique_immut::operator=(unique_immut& r) {
+	if (&r == this)
+		return *this;
+	this->release();
+	*this = r;
+	r.release();
+	return *this;
+}
+
 } // end of namespace ptr
