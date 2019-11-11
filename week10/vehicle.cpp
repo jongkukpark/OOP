@@ -1,4 +1,5 @@
 #include "vehicle.h"
+#include <typeinfo>
 
 vehicle::vehicle() {}
 
@@ -27,7 +28,14 @@ int vehicle::get_max_speed()
 
 bool vehicle::get_has_name()
 {
-	has_name = false;
+	if (typeid(*this) == typeid(vehicle))
+	{
+		has_name = false;
+	}
+	else
+	{
+		has_name = true;
+	}
 	return this->has_name;
 }
 

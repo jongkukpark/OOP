@@ -20,15 +20,6 @@ int main() {
     std::cout << b1->get_max_speed() << std::endl;
     std::cout << b1->get_bike_number() << std::endl;
     std::cout << b1->get_has_name() << std::endl;
-	
-	{
-		std::cout << "\n" << std::endl;
-		vehicle* cars = new car(10, 20);
-		std::cout << cars->get_class_name() << std::endl;
-		std::cout << cars->get_wheel_number() << std::endl;
-		std::cout << cars->get_max_speed() << std::endl;
-	}
-
     return 0;
 }
 
